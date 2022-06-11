@@ -29,7 +29,7 @@ public class CloneUtils {
     public static Object clone(Object value) {
         if (value instanceof Raw rawToClone) {
             Raw raw = new Raw();
-            for (Entry<String, Object> entry : rowToClone.entrySet()) {
+            for (Entry<String, Object> entry : rawToClone.entrySet()) {
                 raw.put(entry.getKey(), clone(entry.getValue()));
             }
             return raw;
