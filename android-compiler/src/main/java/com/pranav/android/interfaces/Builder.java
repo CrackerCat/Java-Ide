@@ -1,10 +1,11 @@
 package com.pranav.android.interfaces;
 
+import com.pranav.android.task.JavaBuilder;
 import android.content.Context;
 
-public abstract class Builder {
+public sealed interface Builder permits JavaBuilder {
 
-    public abstract Context getContext();
+    public Context getContext();
 
-    public abstract ClassLoader getClassloader();
+    public ClassLoader getClassloader();
 }

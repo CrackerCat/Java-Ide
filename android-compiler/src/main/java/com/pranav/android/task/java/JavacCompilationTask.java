@@ -21,7 +21,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardLocation;
 
-public class JavacCompilationTask extends Task {
+public class JavacCompilationTask implements Task {
 
     private final SharedPreferences prefs;
 

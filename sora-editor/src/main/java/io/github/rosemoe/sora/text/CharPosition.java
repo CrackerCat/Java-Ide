@@ -79,8 +79,7 @@ public final class CharPosition {
 
     @Override
     public boolean equals(Object another) {
-        if (another instanceof CharPosition) {
-            CharPosition a = (CharPosition) another;
+        if (another instanceof CharPosition a) {
             return a.column == column && a.line == line && a.index == index;
         }
         return false;

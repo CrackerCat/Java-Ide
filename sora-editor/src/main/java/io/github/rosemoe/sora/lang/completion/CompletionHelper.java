@@ -55,8 +55,8 @@ public class CompletionHelper {
      */
     public static boolean checkCancelled() {
         var thread = Thread.currentThread();
-        if (thread instanceof EditorAutoCompletion.CompletionThread) {
-            return ((EditorAutoCompletion.CompletionThread) thread).isCancelled();
+        if (thread instanceof EditorAutoCompletion.CompletionThread completionThread) {
+            return completionThread.isCancelled();
         } else {
             return false;
         }

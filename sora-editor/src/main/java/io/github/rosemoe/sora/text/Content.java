@@ -735,8 +735,7 @@ public class Content implements CharSequence {
 
     @Override
     public boolean equals(Object anotherObject) {
-        if (anotherObject instanceof Content) {
-            Content content = (Content) anotherObject;
+        if (anotherObject instanceof Content content) {
             if (content.length() != this.length()) {
                 return false;
             }
@@ -812,8 +811,8 @@ public class Content implements CharSequence {
     private void dispatchBeforeReplace() {
         undoManager.beforeReplace(this);
         if (cursor != null) cursor.beforeReplace();
-        if (indexer instanceof ContentListener) {
-            ((ContentListener) indexer).beforeReplace(this);
+        if (indexer instanceof ContentListener listener) {
+            listener.beforeReplace(this);
         }
         for (ContentListener lis : contentListeners) {
             lis.beforeReplace(this);
@@ -832,8 +831,8 @@ public class Content implements CharSequence {
     private void dispatchAfterDelete(int a, int b, int c, int d, CharSequence e) {
         undoManager.afterDelete(this, a, b, c, d, e);
         if (cursor != null) cursor.afterDelete(a, b, c, d, e);
-        if (indexer instanceof ContentListener) {
-            ((ContentListener) indexer).afterDelete(this, a, b, c, d, e);
+        if (indexer instanceof ContentListener listener) {
+            listener.afterDelete(this, a, b, c, d, e);
         }
         for (ContentListener lis : contentListeners) {
             lis.afterDelete(this, a, b, c, d, e);
@@ -852,8 +851,8 @@ public class Content implements CharSequence {
     private void dispatchAfterInsert(int a, int b, int c, int d, CharSequence e) {
         undoManager.afterInsert(this, a, b, c, d, e);
         if (cursor != null) cursor.afterInsert(a, b, c, d, e);
-        if (indexer instanceof ContentListener) {
-            ((ContentListener) indexer).afterInsert(this, a, b, c, d, e);
+        if (indexer instanceof ContentListener listener) {
+            listener.afterInsert(this, a, b, c, d, e);
         }
         for (ContentListener lis : contentListeners) {
             lis.afterInsert(this, a, b, c, d, e);

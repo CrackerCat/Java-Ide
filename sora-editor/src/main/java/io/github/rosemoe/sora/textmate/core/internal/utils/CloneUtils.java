@@ -27,15 +27,14 @@ public class CloneUtils {
     private CloneUtils() {}
 
     public static Object clone(Object value) {
-        if (value instanceof Raw) {
-            Raw rowToClone = (Raw) value;
+        if (value instanceof Raw rawToClone) {
             Raw raw = new Raw();
             for (Entry<String, Object> entry : rowToClone.entrySet()) {
                 raw.put(entry.getKey(), clone(entry.getValue()));
             }
             return raw;
-        } else if (value instanceof List) {
-            return ((List<?>) value).stream().map(CloneUtils::clone).collect(Collectors.toList());
+        } else if (value instanceof List list) {
+            return list.stream().map(CloneUtils::clone).collect(Collectors.toList());
         } else if (value instanceof String) {
             return value;
         } else if (value instanceof Integer) {

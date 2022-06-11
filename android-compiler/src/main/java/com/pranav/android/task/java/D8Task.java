@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class D8Task extends Task {
+public class D8Task implements Task {
 
     private Exception ex = null;
 
