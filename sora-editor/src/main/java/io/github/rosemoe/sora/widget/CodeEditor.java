@@ -532,7 +532,7 @@ public class CodeEditor extends View
         // Issue #41 View being highlighted when focused on Android 11
         setDefaultFocusHighlightEnabled(false);
         if (getContext() instanceof ContextThemeWrapper wrapper) {
-            setEdgeEffectColor(ThemeUtils.getColorPrimary(wrapper);
+            setEdgeEffectColor(ThemeUtils.getColorPrimary(wrapper));
         }
 
         // Config scale detector

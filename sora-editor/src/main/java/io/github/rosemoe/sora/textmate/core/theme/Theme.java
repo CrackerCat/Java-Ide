@@ -102,14 +102,14 @@ public class Theme {
             String foreground = null;
             Object settingsForeground = entry.getSetting().getForeground();
             if (settingsForeground instanceof String fg
-                    && isValidHexColor(fg) {
+                    && isValidHexColor(fg)) {
                 foreground = fg;
             }
 
             String background = null;
             Object settingsBackground = entry.getSetting().getBackground();
             if (settingsBackground instanceof String bg
-                    && isValidHexColor(bg) {
+                    && isValidHexColor(bg)) {
                 background = bg;
             }
             for (int j = 0, lenJ = scopes.size(); j < lenJ; j++) {
