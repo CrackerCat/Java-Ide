@@ -573,7 +573,7 @@ public class JavacFileManager extends BaseFileManager implements StandardJavaFil
                 Files.walkFileTree(root, NO_FILE_VISIT_OPTIONS, Integer.MAX_VALUE,
                         new SimpleFileVisitor<Path>() {
                             @Override
-                            public FileVisitResult preVisitDirectory(
+                            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
                                 if (isValid(dir.getFileName())) {
                                     packages.put(new RelativeDirectory(root.relativize(dir).toString()), dir);
                                     return FileVisitResult.CONTINUE;
