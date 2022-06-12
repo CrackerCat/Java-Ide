@@ -16,9 +16,8 @@ import java.util.List
 import java.util.Locale
 
 import javax.tools.DiagnosticCollector
-import javax.tools.JavaSourceFromString;
+import com.pranav.analyzer.JavaSourceFromString;
 import javax.tools.JavaFileObject
-import javax.tools.SimpleJavaFileObject
 import javax.tools.StandardLocation
 
 class JavacAnalyzer(context: Context) {
@@ -35,7 +34,7 @@ class JavacAnalyzer(context: Context) {
     fun analyze(name: String, code: String) {
         val output = File(FileUtil.getBinDir(), "classes")
         output.mkdirs()
-        val version = prefs.getString("version", "7")
+        val version = prefs.getString("version", "7")!!
 
         val javaFileObjects = ArrayList<JavaFileObject>()
         javaFileObjects.add(
@@ -50,15 +49,14 @@ class JavacAnalyzer(context: Context) {
         standardJavaFileManager.setLocation(
                 StandardLocation.PLATFORM_CLASS_PATH, getPlatformClasspath())
         standardJavaFileManager.setLocation(StandardLocation.CLASS_PATH, getClasspath())
-        standardJavaFileManager.setLocation(StandardLocation.SOURCE_PATH, javaFiles)
 
         val args = ArrayList<String>()
 
         args.add("-proc:none")
         args.add("-source")
-        args.add(version?)
+        args.add(version)
         args.add("-target")
-        args.add(version?)
+        args.add(version)
 
         val task =
                 (tool.getTask(
@@ -80,7 +78,7 @@ class JavacAnalyzer(context: Context) {
     }
 
     fun reset() {
-        diagnostics = DiagnosticCollector<>()
+        diagnostics = DiagnosticCollector<JavaFileObject>()
     }
 
     fun getDiagnostics(): ArrayList<DiagnosticWrapper> {
@@ -99,8 +97,8 @@ class JavacAnalyzer(context: Context) {
         val classpath = ArrayList<File>()
         val clspath = prefs.getString("classpath", "")
 
-        if (!clspath?.isEmpty()) {
-            for (clas in clspath?.split(":")) {
+        if (!clspath!!.isEmpty()) {
+            for (clas in clspath!!.split(":")) {
                 classpath.add(File(clas))
             }
         }

@@ -24,7 +24,7 @@
  * questions.
  */
 
-package javax.tools;
+package com.pranav.analyzer;
 
 import javax.tools.SimpleJavaFileObject;
 import java.net.URI;
