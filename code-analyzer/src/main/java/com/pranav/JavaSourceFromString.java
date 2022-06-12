@@ -24,33 +24,32 @@
  * questions.
  */
 
-package com.pranav.analyzer;
+package com.pranav.analyzer
 
-import javax.tools.SimpleJavaFileObject;
-import java.net.URI;
+import javax.tools.SimpleJavaFileObject
+import java.net.URI
 // @end
 /**
  * A file object used to represent source coming from a string.
  */
-public class JavaSourceFromString extends SimpleJavaFileObject {
+class JavaSourceFromString(name: String, code: String) : SimpleJavaFileObject {
     /**
      * The source code of this "file".
      */
-    final String code;
+    val code: String;
 
     /**
      * Constructs a new JavaSourceFromString.
      * @param name the name of the compilation unit represented by this file object
      * @param code the source code for the compilation unit represented by this file object
      */
-    public JavaSourceFromString(String name, String code) {
+    init {
         super(URI.create("string:///" + name.replace('.','/') + Kind.SOURCE.extension), // @link substring="URI.create" target="URI#create(String)"
-              Kind.SOURCE);
-        this.code = code;
+              Kind.SOURCE)
+        this.code = code
     }
 
-    @Override
-    public CharSequence getCharContent(boolean ignoreEncodingErrors) {
-        return code;
+    override fun getCharContent(ignoreEncodingErrors: Boolean): CharSequence {
+        return code
     }
 }
