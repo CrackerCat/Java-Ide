@@ -263,15 +263,18 @@ public class RuleFactory {
 
                     skipRule = false;
 
-                    if (rule instanceof IncludeOnlyRule ior) {
+                    if (rule instanceof IncludeOnlyRule) {
+                        IncludeOnlyRule ior = (IncludeOnlyRule) rule;
                         if (ior.hasMissingPatterns && ior.patterns.length == 0) {
                             skipRule = true;
                         }
-                    } else if (rule instanceof BeginEndRule br) {
+                    } else if (rule instanceof BeginEndRule) {
+                        BeginEndRule br = (BeginEndRule) rule;
                         if (br.hasMissingPatterns && br.patterns.length == 0) {
                             skipRule = true;
                         }
-                    } else if (rule instanceof BeginWhileRule br) {
+                    } else if (rule instanceof BeginWhileRule) {
+                        BeginWhileRule br = (BeginWhileRule) rule;
                         if (br.hasMissingPatterns && br.patterns.length == 0) {
                             skipRule = true;
                         }

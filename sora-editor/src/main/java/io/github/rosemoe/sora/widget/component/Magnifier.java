@@ -196,8 +196,8 @@ public class Magnifier implements EditorBuiltinComponent {
         if (!isShowing()) {
             return;
         }
-        if (view.getContext() instanceof Activity activity) {
-            updateDisplayOreo(activity);
+        if (view.getContext() instanceof Activity) {
+            updateDisplayOreo((Activity) view.getContext());
         } else {
             updateDisplayWithinEditor();
         }

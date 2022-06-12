@@ -136,8 +136,8 @@ public class TreeViewAdapter<D> extends RecyclerView.Adapter<RecyclerView.ViewHo
                     view -> viewBinder.onNodeLongClicked(view, treeNode, treeNode.isExpanded()));
         }
 
-        if (viewBinder instanceof CheckableNodeViewBinder nodeViewBinder) {
-            setupCheckableItem(nodeView, treeNode, nodeViewBinder);
+        if (viewBinder instanceof CheckableNodeViewBinder) {
+            setupCheckableItem(nodeView, treeNode, (CheckableNodeViewBinder<D>) viewBinder);
         }
 
         viewBinder.bindView(treeNode);
@@ -149,7 +149,8 @@ public class TreeViewAdapter<D> extends RecyclerView.Adapter<RecyclerView.ViewHo
             final CheckableNodeViewBinder<D> viewBinder) {
         final var view = nodeView.findViewById(viewBinder.getCheckableViewId());
 
-        if (view instanceof final Checkable checkableView) {
+        if (view instanceof Checkable) {
+            final var checkableView = (Checkable) view;
             checkableView.setChecked(treeNode.isSelected());
 
             view.setOnClickListener(

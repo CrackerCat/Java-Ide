@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class ECJCompilationTask implements Task {
+public class ECJCompilationTask extends Task {
 
     private final StringBuilder errs = new StringBuilder();
     private final SharedPreferences prefs;

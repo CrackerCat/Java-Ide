@@ -531,8 +531,8 @@ public class CodeEditor extends View
 
         // Issue #41 View being highlighted when focused on Android 11
         setDefaultFocusHighlightEnabled(false);
-        if (getContext() instanceof ContextThemeWrapper wrapper) {
-            setEdgeEffectColor(ThemeUtils.getColorPrimary(wrapper));
+        if (getContext() instanceof ContextThemeWrapper) {
+            setEdgeEffectColor(ThemeUtils.getColorPrimary((ContextThemeWrapper) getContext()));
         }
 
         // Config scale detector
@@ -3079,8 +3079,8 @@ public class CodeEditor extends View
             mText.setLineListener(null);
         }
         mExtraArguments = extraArguments == null ? new Bundle() : extraArguments;
-        if (reuseContentObject && text instanceof Content content) {
-            mText = content;
+        if (reuseContentObject && text instanceof Content) {
+            mText = (Content) text;
             mPainter.updateTimestamp();
         } else {
             mText = new Content(text);

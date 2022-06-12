@@ -166,7 +166,8 @@ class LineTokenizer {
             ScopeListElement nameScopesList = stack.contentNameScopesList.push(grammar, scopeName);
             stack = stack.push(matchedRuleId, linePos, null, nameScopesList, nameScopesList);
 
-            if (rule instanceof BeginEndRule pushedRule) {
+            if (rule instanceof BeginEndRule) {
+                BeginEndRule pushedRule = (BeginEndRule) rule;
 
                 // if (IN_DEBUG_MODE) {
                 // console.log(' pushing ' + pushedRule.debugName + ' - ' +
@@ -205,7 +206,8 @@ class LineTokenizer {
                     stop = true;
                     return;
                 }
-            } else if (rule instanceof BeginWhileRule pushedRule) {
+            } else if (rule instanceof BeginWhileRule) {
+                BeginWhileRule pushedRule = (BeginWhileRule) rule;
                 // if (IN_DEBUG_MODE) {
                 // console.log(' pushing ' + pushedRule.debugName);
                 // }
@@ -554,8 +556,8 @@ class LineTokenizer {
         List<WhileStack> whileRules = new ArrayList<>();
         for (StackElement node = stack; node != null; node = node.pop()) {
             Rule nodeRule = node.getRule(grammar);
-            if (nodeRule instanceof BeginWhileRule pushedRule) {
-                whileRules.add(new WhileStack(node, pushedRule));
+            if (nodeRule instanceof BeginWhileRule) {
+                whileRules.add(new WhileStack(node, (BeginWhileRule) nodeRule));
             }
         }
         for (int i = whileRules.size() - 1; i >= 0; i--) {

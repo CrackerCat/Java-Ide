@@ -161,7 +161,7 @@ public class ContentLine implements CharSequence, GetChars {
      */
     public ContentLine insert(int dstOffset, CharSequence s) {
         if (s == null) s = "null";
-        if (s instanceof String str) return this.insert(dstOffset, str);
+        if (s instanceof String) return this.insert(dstOffset, (String) s);
         return this.insert(dstOffset, s, 0, s.length());
     }
 

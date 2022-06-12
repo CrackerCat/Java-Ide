@@ -191,7 +191,9 @@ public class DiagnosticWrapper implements Diagnostic<File> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof DiagnosticWrapper that) {
+        if (obj instanceof DiagnosticWrapper) {
+            DiagnosticWrapper that = (DiagnosticWrapper) obj;
+
             if (that.message != null && this.message == null) {
                 return false;
             }

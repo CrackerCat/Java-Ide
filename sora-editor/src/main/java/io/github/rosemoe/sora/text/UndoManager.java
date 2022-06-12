@@ -242,7 +242,8 @@ public final class UndoManager implements ContentListener, Parcelable {
                 mStackPointer++;
             } else {
                 ContentAction a = mActionStack.get(mActionStack.size() - 1);
-                if (a instanceof MultiAction ac) {
+                if (a instanceof MultiAction) {
+                    MultiAction ac = (MultiAction) a;
                     ac.addAction(action);
                 } else {
                     MultiAction ac = new MultiAction();
@@ -386,7 +387,8 @@ public final class UndoManager implements ContentListener, Parcelable {
 
         @Override
         public boolean canMerge(ContentAction action) {
-            if (action instanceof InsertAction ac) {
+            if (action instanceof InsertAction) {
+                InsertAction ac = (InsertAction) action;
                 return (ac.startColumn == endColumn
                         && ac.startLine == endLine
                         && ac.text.length() + text.length() < 10000
@@ -404,8 +406,8 @@ public final class UndoManager implements ContentListener, Parcelable {
             this.endColumn = ac.endColumn;
             this.endLine = ac.endLine;
             StringBuilder sb;
-            if (text instanceof StringBuilder builder) {
-                sb = builder;
+            if (text instanceof StringBuilder) {
+                sb = (StringBuilder) text;
             } else {
                 sb = new StringBuilder(text);
                 text = sb;
@@ -550,7 +552,8 @@ public final class UndoManager implements ContentListener, Parcelable {
 
         @Override
         public boolean canMerge(ContentAction action) {
-            if (action instanceof DeleteAction ac) {
+            if (action instanceof DeleteAction) {
+                DeleteAction ac = (DeleteAction) action;
                 return (ac.endColumn == startColumn
                         && ac.endLine == startLine
                         && ac.text.length() + text.length() < 10000
@@ -568,8 +571,8 @@ public final class UndoManager implements ContentListener, Parcelable {
             this.startColumn = ac.startColumn;
             this.startLine = ac.startLine;
             StringBuilder sb;
-            if (text instanceof StringBuilder builder) {
-                sb = builder;
+            if (text instanceof StringBuilder) {
+                sb = (StringBuilder) text;
             } else {
                 sb = new StringBuilder(text);
                 text = sb;

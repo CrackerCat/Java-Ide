@@ -68,7 +68,9 @@ public class Theme {
 
             Object settingScope = entry.getScope();
             List<String> scopes = new ArrayList<>();
-            if (settingScope instanceof String scope) {
+            if (settingScope instanceof String) {
+                String scope = (String) settingScope;
+
                 // remove leading commas
                 scope = scope.replaceAll("^[,]+", "");
 
@@ -76,18 +78,18 @@ public class Theme {
                 scope = scope.replaceAll("[,]+$", "");
 
                 scopes = Arrays.asList(scope.split(","));
-            } else if (settingScope instanceof List scopeList) {
-                scopes = scopeList;
+            } else if (settingScope instanceof List) {
+                scopes = (List<String>) settingScope;
             } else {
                 scopes.add("");
             }
 
             int fontStyle = FontStyle.NotSet;
             Object settingsFontStyle = entry.getSetting().getFontStyle();
-            if (settingsFontStyle instanceof String style) {
+            if (settingsFontStyle instanceof String) {
                 fontStyle = FontStyle.None;
 
-                String[] segments = style.split(" ");
+                String[] segments = ((String) settingsFontStyle).split(" ");
                 for (String segment : segments) {
                     if ("italic".equals(segment)) {
                         fontStyle = fontStyle | FontStyle.Italic;
@@ -101,16 +103,16 @@ public class Theme {
 
             String foreground = null;
             Object settingsForeground = entry.getSetting().getForeground();
-            if (settingsForeground instanceof String fg
-                    && isValidHexColor(fg)) {
-                foreground = fg;
+            if (settingsForeground instanceof String
+                    && isValidHexColor((String) settingsForeground)) {
+                foreground = (String) settingsForeground;
             }
 
             String background = null;
             Object settingsBackground = entry.getSetting().getBackground();
-            if (settingsBackground instanceof String bg
-                    && isValidHexColor(bg)) {
-                background = bg;
+            if (settingsBackground instanceof String
+                    && isValidHexColor((String) settingsBackground)) {
+                background = (String) settingsBackground;
             }
             for (int j = 0, lenJ = scopes.size(); j < lenJ; j++) {
                 String _scope = scopes.get(j).trim();

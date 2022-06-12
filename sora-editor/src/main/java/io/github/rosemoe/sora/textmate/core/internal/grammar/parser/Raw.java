@@ -131,10 +131,10 @@ public class Raw extends HashMap<String, Object>
 
     private void updateCaptures(String name) {
         Object captures = super.get(name);
-        if (captures instanceof List list) {
+        if (captures instanceof List) {
             Raw rawCaptures = new Raw();
             int i = 0;
-            for (Object capture : list) {
+            for (Object capture : (List<?>) captures) {
                 i++;
                 rawCaptures.put(i + "", capture);
             }
@@ -241,11 +241,11 @@ public class Raw extends HashMap<String, Object>
         if (applyEndPatternLast == null) {
             return false;
         }
-        if (applyEndPatternLast instanceof Boolean isApplyPattern) {
-            return isApplyPattern;
+        if (applyEndPatternLast instanceof Boolean) {
+            return (Boolean) applyEndPatternLast;
         }
-        if (applyEndPatternLast instanceof Integer endPattern) {
-            return endPattern.equals(1);
+        if (applyEndPatternLast instanceof Integer) {
+            return ((Integer) applyEndPatternLast).equals(1);
         }
         return false;
     }

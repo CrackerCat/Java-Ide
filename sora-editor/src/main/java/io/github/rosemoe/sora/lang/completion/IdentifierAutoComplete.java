@@ -144,7 +144,7 @@ public class IdentifierAutoComplete {
     }
 
     private static String asString(CharSequence str) {
-        return (str instanceof String string ? string : str.toString());
+        return (str instanceof String ? (String) str : str.toString());
     }
 
     private static final Comparator<CompletionItem> COMPARATOR =

@@ -5,7 +5,7 @@ import android.content.Context;
 import com.pranav.android.interfaces.*;
 import com.pranav.android.task.java.*;
 
-public class JavaBuilder implements Builder {
+public class JavaBuilder extends Builder {
 
     public final ClassLoader classloader;
 

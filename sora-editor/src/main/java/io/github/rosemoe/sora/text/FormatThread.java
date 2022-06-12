@@ -61,8 +61,8 @@ public class FormatThread extends Thread {
         var type = mStart != null;
         try {
             CharSequence chars =
-                    ((mText instanceof Content content)
-                            ? (content.toStringBuilder())
+                    ((mText instanceof Content)
+                            ? (((Content) mText).toStringBuilder())
                             : new StringBuilder(mText));
             if (type) {
                 result = mLanguage.formatRegion(chars, mStart, mEnd);

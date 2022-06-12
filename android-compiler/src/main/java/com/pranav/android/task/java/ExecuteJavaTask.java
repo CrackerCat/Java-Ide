@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Modifier;
 
-public class ExecuteJavaTask implements Task {
+public class ExecuteJavaTask extends Task {
 
     private final Builder mBuilder;
     private final String clazz;
