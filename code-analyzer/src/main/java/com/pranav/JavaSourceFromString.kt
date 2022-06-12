@@ -36,7 +36,7 @@ class JavaSourceFromString(name: String, code: String) : SimpleJavaFileObject {
     /**
      * The source code of this "file".
      */
-    val code: String;
+    val code: String
 
     /**
      * Constructs a new JavaSourceFromString.
