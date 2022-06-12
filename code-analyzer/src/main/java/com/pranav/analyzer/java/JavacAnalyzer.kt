@@ -16,6 +16,7 @@ import java.util.List
 import java.util.Locale
 
 import javax.tools.DiagnosticCollector
+import javax.tools.JavaSourceFromString;
 import javax.tools.JavaFileObject
 import javax.tools.SimpleJavaFileObject
 import javax.tools.StandardLocation
@@ -31,23 +32,15 @@ class JavacAnalyzer(context: Context) {
     }
 
     @Throws(IOException::class)
-    fun analyze() {
-
+    fun analyze(name: String, code: String) {
         val output = File(FileUtil.getBinDir(), "classes")
         output.mkdirs()
         val version = prefs.getString("version", "7")
 
         val javaFileObjects = ArrayList<JavaFileObject>()
-        val javaFiles = getSourceFiles(File(FileUtil.getJavaDir()))
-        for (val file in javaFiles) {
-            javaFileObjects.add(
-                    SimpleJavaFileObject(file.toURI(), JavaFileObject.Kind.SOURCE) {
-                        @Throws(IOException::class)
-                        override fun getCharContent(ignoreEncodingErrors: Boolean): CharSequence {
-                            return FileUtil.readFile(file)
-                        }
-                    })
-        }
+        javaFileObjects.add(
+                JavaSourceFromString(name, code, JavaFileObject.Kind.SOURCE)
+        )
 
         val tool = JavacTool.create()
 
@@ -63,22 +56,22 @@ class JavacAnalyzer(context: Context) {
 
         args.add("-proc:none")
         args.add("-source")
-        args.add(version)
+        args.add(version?)
         args.add("-target")
-        args.add(version)
+        args.add(version?)
 
         val task =
-                (JavacTask)
-                        tool.getTask(
+                (tool.getTask(
                                 null,
                                 standardJavaFileManager,
                                 diagnostics,
                                 args,
                                 null,
-                                javaFileObjects)
+                                javaFileObjects) as JavacTask)
 
         task.parse()
         task.analyze()
+        standardJavaFileManager.close()
         isFirstUse = false
     }
 
@@ -90,38 +83,24 @@ class JavacAnalyzer(context: Context) {
         diagnostics = DiagnosticCollector<>()
     }
 
-    fun getDiagnostics(): List<DiagnosticWrapper> {
+    fun getDiagnostics(): ArrayList<DiagnosticWrapper> {
         val problems = ArrayList<DiagnosticWrapper>()
-        for (val diagnostic in diagnostics.getDiagnostics()) {
-            problems.add(DiagnosticWrapper(diagnostic))
-        }
-        return problems
-    }
-
-    private fun getSourceFiles(path: File): ArrayList<File> {
-        val sourceFiles = ArrayList<File>();
-        val files = path.listFiles()
-        if (files == null) {
-            return ArrayList<File>()
-        }
-        for (val file in files) {
-            if (file.isFile()) {
-                if (file.getName().endsWith(".java")) {
-                    sourceFiles.add(file)
-                }
-            } else {
-                sourceFiles.addAll(getSourceFiles(file))
+        for (diagnostic in diagnostics.getDiagnostics()) {
+            // since we're not compiling the whole project, there might be some errors
+            // from files that we skipped, so it should mostly be safe to ignore these
+            if (!diagnostic.getCode().startsWith("compiler.err.cant.resolve")) {
+                problems.add(DiagnosticWrapper(diagnostic))
             }
         }
-        return sourceFiles
+        return problems
     }
 
     private fun getClasspath(): ArrayList<File> {
         val classpath = ArrayList<File>()
         val clspath = prefs.getString("classpath", "")
 
-        if (!clspath.isEmpty()) {
-            for (val clas in clspath.split(":")) {
+        if (!clspath?.isEmpty()) {
+            for (clas in clspath?.split(":")) {
                 classpath.add(File(clas))
             }
         }
