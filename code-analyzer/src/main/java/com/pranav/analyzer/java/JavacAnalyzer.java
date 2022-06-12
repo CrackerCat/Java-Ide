@@ -37,7 +37,7 @@ public class JavacAnalyzer {
 
         final var javaFileObjects = new ArrayList<JavaFileObject>();
         javaFileObjects.add(
-                new JavaSourceFromString(name, code, JavaFileObject.Kind.SOURCE);
+                new JavaSourceFromString(name, code, JavaFileObject.Kind.SOURCE)
         );
 
         final var tool = JavacTool.create();

@@ -51,6 +51,6 @@ public class JavaSourceFromString extends SimpleJavaFileObject {
 
     @Override
     public CharSequence getCharContent(boolean ignoreEncodingErrors) {
-        return code:
+        return code;
     }
 }
