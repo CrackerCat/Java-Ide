@@ -3,13 +3,13 @@ apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'com.android.lint'
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_16
+	targetCompatibility = JavaVersion.VERSION_16
 }
 
 compileKotlin {
 	kotlinOptions {
-		jvmTarget = JavaVersion.VERSION_17
+		jvmTarget = JavaVersion.VERSION_16
 	}
 }
 
