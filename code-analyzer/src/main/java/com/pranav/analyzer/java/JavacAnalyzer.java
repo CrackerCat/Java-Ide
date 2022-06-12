@@ -37,7 +37,7 @@ public class JavacAnalyzer {
 
         final var javaFileObjects = new ArrayList<JavaFileObject>();
         javaFileObjects.add(
-                new JavaSourceFromString(name, code, JavaFileObject.Kind.SOURCE)
+                new JavaSourceFromString(name, code)
         );
 
         final var tool = JavacTool.create();
@@ -87,7 +87,7 @@ public class JavacAnalyzer {
             // since we're not compiling the whole project, there might be some errors
             // from files that we skipped, so it should mostly be safe to ignore these
             if (!diagnostic.getCode().startsWith("compiler.err.cant.resolve")) {
-                problems.add(DiagnosticWrapper(diagnostic));
+                problems.add(new DiagnosticWrapper(diagnostic));
             }
         }
         return problems;
